@@ -132,7 +132,7 @@ one. If there is no listener with that id, do nothing.
             
   let remove_listener (evt : 'a event) (i : id) : unit =
     let myFind (myId : id) (item : 'a waiter) : bool =
-      item.id == myId in
+      item.id <> myId in
     evt := List.filter (myFind i) !evt ;;
 
 (*......................................................................
