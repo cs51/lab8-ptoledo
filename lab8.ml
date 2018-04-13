@@ -145,7 +145,11 @@ listening for the event.
 ......................................................................*)
             
   let fire_event (evt : 'a event) (arg : 'a) : unit =
-    failwith "WEvent.fire_event not implemented"
+    let rec apply (arg : 'a) (lst : 'a waiter list) : unit =
+      match lst with
+      | []   -> ()
+      | h::t -> h.action arg; apply arg t in
+    apply arg !evt
 
 end
   
