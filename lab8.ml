@@ -122,7 +122,7 @@ decide how to implement this.
                                                    
   let add_listener (evt : 'a event) (listener : 'a -> unit) : id =
     let myWaiter = {id = new_id (); action = listener} in
-    evt := myWaiter::!evt; myWaiter.id ;;
+    evt := myWaiter::!evt; myWaiter.id
 
 (*......................................................................
 Exercise 2: Write remove_listener, which, given an id and an event,
@@ -131,7 +131,9 @@ one. If there is no listener with that id, do nothing.
 ......................................................................*)
             
   let remove_listener (evt : 'a event) (i : id) : unit =
-    failwith "WEvent.remove_listener not implemented"
+    let myFind (myId : id) (item : 'a waiter) : bool =
+      item.id == myId in
+    evt := List.filter (myFind i) !evt ;;
 
 (*......................................................................
 Exercise 3: Write fire_event, which will execute all event handlers
